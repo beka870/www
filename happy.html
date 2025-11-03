@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لعبة المزاج الحلو 💖</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #ffb6c1, #ffc3a0);
+    font-family: "Tajawal", sans-serif;
+    text-align: center;
+    padding: 50px;
+    overflow: hidden;
+    position: relative;
+  }
+  h1 {
+    color: #fff;
+    font-size: 2.2em;
+    margin-bottom: 30px;
+  }
+  .face {
+    font-size: 100px;
+    transition: transform 0.4s;
+  }
+  button {
+    margin-top: 40px;
+    background-color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 15px 35px;
+    font-size: 20px;
+    color: #ff5f9e;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover {
+    background-color: #ff5f9e;
+    color: #fff;
+    transform: scale(1.05);
+  }
+  .message {
+    font-size: 22px;
+    margin-top: 30px;
+    color: #fff;
+    min-height: 40px;
+  }
+
+  /* القلوب المتطايرة */
+  .heart {
+    position: absolute;
+    color: #ff4d88;
+    font-size: 24px;
+    animation: floatUp 3s linear forwards;
+    opacity: 0.8;
+  }
+
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-600px) scale(1.8);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>🎮 تغير مزاج فطومتي 🎮</h1>
+<div class="face" id="face">🥺</div>
+<div class="message" id="message">اضغطي لتغيير المزاج 💗</div>
+<button onclick="changeMood()">اضغطي هنا 💕</button>
+
+<script>
+  const faces = ["🥺", "☺️", "😍", "😚", "🥰", "🫂", "🫂"];
+  const messages = [
+    "ها بدأت تبتسمي 😄",
+    "شوفي؟ الحزن ما يستاهلك 🌸",
+    "ابتسامتك تنور الدنيا 💖",
+    "أنا فخور بيكِ، وانا جمبك في كل الظروف   😘",
+    "ضحكتك أجمل من كل شيء ✨",
+    "أنا بحبك وح نمشي سوا لاعمق حتة في قلبك! 🥰"
+  ];
+  let index = 0;
+
+  function changeMood() {
+    // تغيّر الوجه والرسالة
+    if (index < faces.length - 1) {
+      index++;
+    } else {
+      index = 0;
+    }
+    document.getElementById("face").textContent = faces[index];
+    document.getElementById("message").textContent = messages[index] || "اضغطي لتغيير المزاج 💗";
+    document.getElementById("face").style.transform = "scale(1.2)";
+    setTimeout(() => {
+      document.getElementById("face").style.transform = "scale(1)";
+    }, 300);
+
+    // إطلاق القلوب 💕
+    for (let i = 0; i < 10; i++) {
+      createHeart();
+    }
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.textContent = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    heart.style.animationDuration = 2 + Math.random() * 2 + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => {
+      heart.remove();
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>
