@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بداية جديدة</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;font-family:'Cairo',sans-serif}
+body{
+margin:0;
+min-height:100vh;
+background:linear-gradient(135deg,#f7f9fc,#eef3ff);
+display:flex;
+justify-content:center;
+align-items:center;
+color:#333;
+}
+
+.hidden{display:none}
+
+.glass{
+background:rgba(255,255,255,0.75);
+backdrop-filter:blur(14px);
+border-radius:22px;
+padding:25px;
+width:95%;
+max-width:450px;
+box-shadow:0 20px 45px rgba(0,0,0,.12);
+text-align:center;
+}
+
+h1,h2{margin:10px 0}
+input,textarea,button{
+width:100%;
+padding:12px;
+margin-top:12px;
+border-radius:14px;
+border:none;
+outline:none;
+font-size:16px;
+}
+textarea{resize:none;height:110px}
+
+button{
+background:#6b9cff;
+color:white;
+font-weight:800;
+cursor:pointer;
+transition:.3s;
+}
+button:hover{background:#4e86f0}
+button.disabled{background:#ccc;cursor:not-allowed}
+
+.card{margin:10px 0}
+.small{font-size:14px;color:#555}
+.quote{
+font-size:22px;
+color:#3a6dd8;
+font-weight:800;
+line-height:1.8;
+}
+.signature{
+margin-top:25px;
+font-size:14px;
+color:rgba(0,0,0,.4);
+}
+</style>
+</head>
+
+<body>
+
+<!-- دخول -->
+<div class="glass" id="login">
+<h1>Beko</h1>
+<p class="small">مرحبًا بك في بداية جديدة ✨</p>
+<input id="username" placeholder="اكتب اسمك">
+<button onclick="enter()">دخول 🚪</button>
+</div>
+
+<!-- الرئيسية -->
+<div class="glass hidden" id="home">
+<h2 id="welcome"></h2>
+<div class="card"><button id="g1" onclick="openPage('msg')">💌 رسالة لقلبك</button></div>
+<div class="card"><button id="g2" onclick="openPage('wish1')">🎯 أمنية السنة الجديدة</button></div>
+<div class="card"><button id="g3" onclick="openPage('deen1')">🕌 رحلة إيمانية</button></div>
+<div class="card"><button id="g4" onclick="openPage('sad1')">🧺 دع حزنك هنا</button></div>
+</div>
+
+<!-- رسالة -->
+<div class="glass hidden" id="msg">
+<h2>💌 رسالة لقلبك</h2>
+<p id="randMsg"></p>
+<button onclick="finish('g1')">تم ✔️</button>
+</div>
+
+<!-- أمنية -->
+<div class="glass hidden" id="wish1">
+<h2>🎯 اكتب أمنيتك</h2>
+<textarea></textarea>
+<button onclick="openPage('wish2')">تم</button>
+</div>
+
+<div class="glass hidden" id="wish2">
+<h2>✨ نتيجتك</h2>
+<p><b>نسبة النجاح: 100٪</b></p>
+<p class="small">لأن النية صادقة… فالتوفيق من الله 🌟</p>
+<button onclick="finish('g2')">تم ✔️</button>
+</div>
+
+<!-- رحلة إيمانية -->
+<div class="glass hidden" id="deen1">
+<h2>🕌 هل ترغب بالمواظبة على الأذكار؟</h2>
+<button onclick="openPage('deen2')">نعم</button>
+<button onclick="openPage('deen2')">لا</button>
+</div>
+
+<div class="glass hidden" id="deen2">
+<h2>📿 أذكار الصباح والمساء</h2>
+<p class="small">
+سبحان الله وبحمده (100 مرة)<br>
+أعوذ بكلمات الله التامات<br>
+اللهم بك أصبحنا وبك أمسينا
+</p>
+<button onclick="openPage('deen3')">التالي</button>
+</div>
+
+<div class="glass hidden" id="deen3">
+<h2>🤍 أذكار عظيمة الأجر</h2>
+<p class="small">
+سبحان الله – الحمد لله – لا إله إلا الله – الله أكبر<br>
+ثقيلة في الميزان عظيمة في الأجر
+</p>
+<button onclick="openPage('deen4')">التالي</button>
+</div>
+
+<div class="glass hidden" id="deen4">
+<h2>🕊 هل أنت مواظب على الصلاة؟</h2>
+<button onclick="openPage('deen5a')">نعم</button>
+<button onclick="openPage('deen5b')">لا</button>
+</div>
+
+<div class="glass hidden" id="deen5a">
+<p class="small">ثبتك الله وزادك نورًا وقربًا 🤍</p>
+<button onclick="openPage('deen6')">التالي</button>
+</div>
+
+<div class="glass hidden" id="deen5b">
+<p class="small">
+ابدأ بصلاة واحدة، واضبط منبهك، واستمر 21 يومًا لتصبح عادة
+</p>
+<button onclick="openPage('deen6')">التالي</button>
+</div>
+
+<div class="glass hidden" id="deen6">
+<h2>📖 هل ترغب بحفظ القرآن؟</h2>
+<button onclick="openPage('deen7')">نعم</button>
+<button onclick="finish('g3')">لا</button>
+</div>
+
+<div class="glass hidden" id="deen7">
+<p class="small">
+خطة حفظ نصف سنة:<br>
+نصف صفحة يوميًا + مراجعة أسبوعية
+</p>
+<button onclick="finish('g3')">تم ✔️</button>
+</div>
+
+<!-- الحزن -->
+<div class="glass hidden" id="sad1">
+<h2>🧺 اترك حزنك هنا</h2>
+<textarea></textarea>
+<button onclick="openPage('sad2')">تم</button>
+</div>
+
+<div class="glass hidden" id="sad2">
+<p class="small">
+لقد تركت حزنك هنا…  
+وسيبدأ عام جديد بقلب أخف ونفس أقوى ✨
+</p>
+<button onclick="finish('g4')">تم ✔️</button>
+</div>
+
+<!-- الخاتمة -->
+<div class="glass hidden" id="end">
+<p class="quote">
+وَإذَا القُلُوبُ توكّلت ما ضرّها<br>
+عسرُ الحياةِ وربّها يَكفيهَا
+</p>
+<p class="small" id="finalText"></p>
+<div class="signature">تحياتي<br>Wd Bakri</div>
+</div>
+
+<script>
+let done = JSON.parse(localStorage.getItem("done") || "{}");
+
+const msgs = [
+"لا تخف إن الله يسمع دعاءك ويرى ما أنت فيه",
+"لا تخبر أحدًا بما تفكر لتصل بسلام",
+"إنّ الله إذا كلّف أعان",
+"لا تستصعب شيئًا أمام قدرة الله",
+"اطمئن… فالله لا يخيّب من وثق به",
+"ما كُتب لك سيأتيك",
+"الله معك حيثما كنت"
+];
+
+function enter(){
+let n=document.getElementById("username").value.trim();
+if(!n)return;
+localStorage.setItem("name",n);
+home();
+}
+
+function home(){
+hideAll();
+document.getElementById("home").classList.remove("hidden");
+document.getElementById("welcome").innerText =
+"أهلًا بك يا "+localStorage.getItem("name")+" 🌟";
+
+Object.keys(done).forEach(id=>{
+let btn=document.getElementById(id);
+if(btn){
+btn.classList.add("disabled");
+btn.innerText+=" ✔️";
+}
+});
+}
+
+function openPage(id){
+hideAll();
+document.getElementById(id).classList.remove("hidden");
+if(id==="msg"){
+document.getElementById("randMsg").innerText =
+msgs[Math.floor(Math.random()*msgs.length)];
+}
+}
+
+function finish(btn){
+done[btn]=true;
+localStorage.setItem("done",JSON.stringify(done));
+
+if(Object.keys(done).length===4){
+endGame();
+}else{
+home();
+}
+}
+
+function endGame(){
+    hideAll();
+    document.getElementById("end").classList.remove("hidden");
+
+    let name = localStorage.getItem("name");
+    document.getElementById("finalText").innerText =
+    `مضت سنة بكل ما فيها…
+بحلوها ومرّها، بألمها وفرحها،
+بنجاحاتها وإخفاقاتها.
+
+والآن… يبدأ عام جديد
+تتجدد فيه الأحلام،
+وتُصحّح فيه المسارات.
+
+وأنت يا ${name}
+قادر — بإذن الله —
+على تحقيق ما كنت تعجز عنه،
+وما كنت تراه مستحيلًا.
+
+قدّر ذاتك، وامنحها الاهتمام الذي تستحقه،
+واجعل كبرياءك سيد الموقف.
+احمِ شخصيتك جيدًا،
+ولا تقع ضحية للذل أو الخداع أو الخذلان.
+
+ابنِ مستقبلك بوعي،
+واجعل عقلك في مقدمة قراراتك،
+فالعاطفة حين تقود وحدها
+تُكثر العشم… وتُكثر الأخطاء.
+
+كن حكيمًا في دنيا
+لا يفكر كل من فيها مثلك،
+ولا يصدق كل من يبتسم لك.
+
+ثق بنفسك…
+فأنت قادر على فعلها 🫡🔥`;
+
+    // 🔥 مسح البيانات بعد الانتهاء
+    setTimeout(()=>{
+        localStorage.clear();
+    },2000);
+}
+
+function hideAll(){
+[
+"login","home","msg",
+"wish1","wish2",
+"deen1","deen2","deen3","deen4","deen5a","deen5b","deen6","deen7",
+"sad1","sad2",
+"end"
+].forEach(id=>{
+document.getElementById(id).classList.add("hidden");
+});
+}
+</script>
+
+</body>
+</html>
